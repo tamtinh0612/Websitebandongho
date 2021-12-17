@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TTshop.Models.NGUOIDUNG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HOTEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIENTHOAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATKHAU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIACHI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHANQUYEN.TENQUYEN)
+        </th>
+        <th>Hành động</th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.HOTEN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EMAIL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DIENTHOAI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MATKHAU)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DIACHI)
+    </td>
+    <th>
+        @Html.DisplayFor(modelItem => item.PHANQUYEN.TENQUYEN)
+    </th>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.MAND }) |
+        @Html.ActionLink("Details", "Details", new { id = item.MAND }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.MAND })
+    </td>
+</tr>
+}
+
+</table>

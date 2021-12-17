@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "TT SHOP";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<br />
+<div class="row">
+    <div class="col-md-8">
+        @Html.Action("SilderPartial", "TTShop")
+    </div>
+    <div class="col-md-4">
+        <img src="~/Images/QC1.jpg" class="img-responsive" alt="" />
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+<div>
+    <img class="img-responsive" src="~/Images/b1.jpg" width="2400" height="200" />
+</div>
+<br />
+<div class="spnoibat">
+    <div class="row">
+
+        <h3> SẢN PHẨM NỔI BẬT</h3>
+        <div class="col-md-4">
+            <img src="~/Images/slider1.jpg" width="1008" height="500" class="img-responsive" alt="" />
+        </div>
+        <div class="col-md-4">
+            <img src="~/Images/slider2.jpg" width="1008" height="500" class="img-responsive" alt="" />
+        </div>
+        <div class="col-md-4">
+            <img src="~/Images/slider3.jpg" width="1008" height="500" class="img-responsive" alt="" />
+        </div>
+    </div>
+</div>
+
+<div class="dt">
+    @Html.Action("TREOTUONGPARTIAL", "SANPHAM")
+</div>
+
+
+<div class="row">
+    <center> <h2> Tin tức sản phẩm</h2> </center>
+    <div class="col-md-6">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/pR_OnWSLKTw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="col-md-4">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wXGBoRZD7n8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+

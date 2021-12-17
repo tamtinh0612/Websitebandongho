@@ -1,0 +1,28 @@
+﻿@model TTshop.Models.THUONGHIEU
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>THUONGHIEU</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TENTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENTH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MATH }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

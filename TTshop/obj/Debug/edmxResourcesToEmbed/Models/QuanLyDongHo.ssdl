@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyDongHoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CHITIETDONHANG">
+    <Key>
+      <PropertyRef Name="MADON" />
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MADON" Type="int" Nullable="false" />
+    <Property Name="MASP" Type="int" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" />
+    <Property Name="DONGIA" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="MADON" />
+    </Key>
+    <Property Name="MADON" Type="int" Nullable="false" />
+    <Property Name="NGAYDAT" Type="datetime" />
+    <Property Name="TINHTRANG" Type="int" />
+    <Property Name="MAND" Type="int" />
+  </EntityType>
+  <EntityType Name="HANGSANXUAT">
+    <Key>
+      <PropertyRef Name="MAHANG" />
+    </Key>
+    <Property Name="MAHANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENHANG" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="MAND" />
+    </Key>
+    <Property Name="MAND" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HOTEN" Type="nvarchar" MaxLength="50" />
+    <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+    <Property Name="DIENTHOAI" Type="nchar" MaxLength="10" />
+    <Property Name="MATKHAU" Type="varchar" MaxLength="50" />
+    <Property Name="IDQUYEN" Type="int" />
+    <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PHANQUYEN">
+    <Key>
+      <PropertyRef Name="IDQUYEN" />
+    </Key>
+    <Property Name="IDQUYEN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENQUYEN" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MASP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENSP" Type="nvarchar" MaxLength="50" />
+    <Property Name="GIATIEN" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="MOTA" Type="ntext" />
+    <Property Name="LOAIDAY" Type="ntext" />
+    <Property Name="ANHBIA" Type="nvarchar" MaxLength="10" />
+    <Property Name="MAHANG" Type="int" />
+    <Property Name="MATH" Type="int" />
+  </EntityType>
+  <EntityType Name="THUONGHIEU">
+    <Key>
+      <PropertyRef Name="MATH" />
+    </Key>
+    <Property Name="MATH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENTH" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_CHITIETDONHANG_DONHANG">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="1" />
+    <End Role="CHITIETDONHANG" Type="Self.CHITIETDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="MADON" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MADON" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CHITIETDONHANG_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+    <End Role="CHITIETDONHANG" Type="Self.CHITIETDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MASP" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MASP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DONHANG_KHACHHANG">
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGUOIDUNG">
+        <PropertyRef Name="MAND" />
+      </Principal>
+      <Dependent Role="DONHANG">
+        <PropertyRef Name="MAND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NGUOIDUNG_NGUOIDUNG">
+    <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="0..1" />
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PHANQUYEN">
+        <PropertyRef Name="IDQUYEN" />
+      </Principal>
+      <Dependent Role="NGUOIDUNG">
+        <PropertyRef Name="IDQUYEN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SANPHAM_HANGSANXUAT">
+    <End Role="HANGSANXUAT" Type="Self.HANGSANXUAT" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGSANXUAT">
+        <PropertyRef Name="MAHANG" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MAHANG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SANPHAM_THUONGHIEU">
+    <End Role="THUONGHIEU" Type="Self.THUONGHIEU" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUONGHIEU">
+        <PropertyRef Name="MATH" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MATH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyDongHoModelStoreContainer">
+    <EntitySet Name="CHITIETDONHANG" EntityType="Self.CHITIETDONHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DONHANG" EntityType="Self.DONHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HANGSANXUAT" EntityType="Self.HANGSANXUAT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHANQUYEN" EntityType="Self.PHANQUYEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="THUONGHIEU" EntityType="Self.THUONGHIEU" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CHITIETDONHANG_DONHANG" Association="Self.FK_CHITIETDONHANG_DONHANG">
+      <End Role="DONHANG" EntitySet="DONHANG" />
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CHITIETDONHANG_SANPHAM" Association="Self.FK_CHITIETDONHANG_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DONHANG_KHACHHANG" Association="Self.FK_DONHANG_KHACHHANG">
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+      <End Role="DONHANG" EntitySet="DONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NGUOIDUNG_NGUOIDUNG" Association="Self.FK_NGUOIDUNG_NGUOIDUNG">
+      <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SANPHAM_HANGSANXUAT" Association="Self.FK_SANPHAM_HANGSANXUAT">
+      <End Role="HANGSANXUAT" EntitySet="HANGSANXUAT" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SANPHAM_THUONGHIEU" Association="Self.FK_SANPHAM_THUONGHIEU">
+      <End Role="THUONGHIEU" EntitySet="THUONGHIEU" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

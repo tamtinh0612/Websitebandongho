@@ -1,0 +1,29 @@
+﻿@using TTshop.Models
+@model SANPHAM
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+}
+
+
+
+<br/>
+<center>
+    <div>
+        <h2>ChiTietSanPham</h2>
+        <img src="@Url.Content("~/Images/" + @Model.ANHBIA)" />
+        <br/>
+        <h3> @Model.TENSP</h3>
+        <h3 style="color:black">Giá: @Model.GIATIEN</h3>
+        <br/>
+        @Model.MOTA
+        <br/>
+        @using (Html.BeginForm("ThemGioHang","GioHang", new {@iMASP=Model.MASP, @strURL = Request.Url.ToString() }))
+            {
+                <input type="submit" value="Mua hàng" id="bgnGioHang" />
+            }
+
+
+    </div>
+
+</center>

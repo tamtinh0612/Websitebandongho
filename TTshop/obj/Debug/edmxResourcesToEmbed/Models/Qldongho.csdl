@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLDONGHOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHITIETDONHANG">
+    <Key>
+      <PropertyRef Name="MADON" />
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MADON" Type="Int32" Nullable="false" />
+    <Property Name="MASP" Type="Int32" Nullable="false" />
+    <Property Name="SOLUONG" Type="Int32" />
+    <Property Name="DONGIA" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="DONHANG" Relationship="Self.FK_MADON_CHITIETSANPHAM" FromRole="CHITIETDONHANG" ToRole="DONHANG" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.FK_MASP_CHITIETSANPHAM" FromRole="CHITIETDONHANG" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="MADON" />
+    </Key>
+    <Property Name="MADON" Type="Int32" Nullable="false" />
+    <Property Name="NGAYDAT" Type="DateTime" Precision="3" />
+    <Property Name="TINHTRANG" Type="Int32" />
+    <Property Name="MAND" Type="Int32" />
+    <NavigationProperty Name="CHITIETDONHANGs" Relationship="Self.FK_MADON_CHITIETSANPHAM" FromRole="DONHANG" ToRole="CHITIETDONHANG" />
+    <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_MAND_NGUOIDUNG" FromRole="DONHANG" ToRole="NGUOIDUNG" />
+  </EntityType>
+  <EntityType Name="HANGSANXUAT">
+    <Key>
+      <PropertyRef Name="MAHANG" />
+    </Key>
+    <Property Name="MAHANG" Type="Int32" Nullable="false" />
+    <Property Name="TENHANG" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_MAHANG_SANPHAM" FromRole="HANGSANXUAT" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="MAND" />
+    </Key>
+    <Property Name="MAND" Type="Int32" Nullable="false" />
+    <Property Name="HOTEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DIENTHOAI" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IDQUYEN" Type="Int32" />
+    <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DONHANGs" Relationship="Self.FK_MAND_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="DONHANG" />
+    <NavigationProperty Name="PHANQUYEN" Relationship="Self.FK_IDQUYEN_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="PHANQUYEN" />
+  </EntityType>
+  <EntityType Name="PHANQUYEN">
+    <Key>
+      <PropertyRef Name="IDQUYEN" />
+    </Key>
+    <Property Name="IDQUYEN" Type="Int32" Nullable="false" />
+    <Property Name="TENQUYEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NGUOIDUNGs" Relationship="Self.FK_IDQUYEN_NGUOIDUNG" FromRole="PHANQUYEN" ToRole="NGUOIDUNG" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MASP" Type="Int32" Nullable="false" />
+    <Property Name="TENSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GIATIEN" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LOAIDAY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ANHBIA" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="MAHANG" Type="Int32" />
+    <Property Name="MATH" Type="Int32" />
+    <NavigationProperty Name="CHITIETDONHANGs" Relationship="Self.FK_MASP_CHITIETSANPHAM" FromRole="SANPHAM" ToRole="CHITIETDONHANG" />
+    <NavigationProperty Name="HANGSANXUAT" Relationship="Self.FK_MAHANG_SANPHAM" FromRole="SANPHAM" ToRole="HANGSANXUAT" />
+    <NavigationProperty Name="THUONGHIEU" Relationship="Self.FK_MATH_SANPHAM" FromRole="SANPHAM" ToRole="THUONGHIEU" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="THUONGHIEU">
+    <Key>
+      <PropertyRef Name="MATH" />
+    </Key>
+    <Property Name="MATH" Type="Int32" Nullable="false" />
+    <Property Name="TENTH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_MATH_SANPHAM" FromRole="THUONGHIEU" ToRole="SANPHAM" />
+  </EntityType>
+  <Association Name="FK_MADON_CHITIETSANPHAM">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="1" />
+    <End Role="CHITIETDONHANG" Type="Self.CHITIETDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="MADON" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MADON" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MASP_CHITIETSANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+    <End Role="CHITIETDONHANG" Type="Self.CHITIETDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MASP" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MASP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MAND_NGUOIDUNG">
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGUOIDUNG">
+        <PropertyRef Name="MAND" />
+      </Principal>
+      <Dependent Role="DONHANG">
+        <PropertyRef Name="MAND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MAHANG_SANPHAM">
+    <End Role="HANGSANXUAT" Type="Self.HANGSANXUAT" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGSANXUAT">
+        <PropertyRef Name="MAHANG" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MAHANG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDQUYEN_NGUOIDUNG">
+    <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="0..1" />
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PHANQUYEN">
+        <PropertyRef Name="IDQUYEN" />
+      </Principal>
+      <Dependent Role="NGUOIDUNG">
+        <PropertyRef Name="IDQUYEN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MATH_SANPHAM">
+    <End Role="THUONGHIEU" Type="Self.THUONGHIEU" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUONGHIEU">
+        <PropertyRef Name="MATH" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MATH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLDONGHOEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHITIETDONHANGs" EntityType="Self.CHITIETDONHANG" />
+    <EntitySet Name="DONHANGs" EntityType="Self.DONHANG" />
+    <EntitySet Name="HANGSANXUATs" EntityType="Self.HANGSANXUAT" />
+    <EntitySet Name="NGUOIDUNGs" EntityType="Self.NGUOIDUNG" />
+    <EntitySet Name="PHANQUYENs" EntityType="Self.PHANQUYEN" />
+    <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="THUONGHIEUx" EntityType="Self.THUONGHIEU" />
+    <AssociationSet Name="FK_MADON_CHITIETSANPHAM" Association="Self.FK_MADON_CHITIETSANPHAM">
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MASP_CHITIETSANPHAM" Association="Self.FK_MASP_CHITIETSANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MAND_NGUOIDUNG" Association="Self.FK_MAND_NGUOIDUNG">
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MAHANG_SANPHAM" Association="Self.FK_MAHANG_SANPHAM">
+      <End Role="HANGSANXUAT" EntitySet="HANGSANXUATs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDQUYEN_NGUOIDUNG" Association="Self.FK_IDQUYEN_NGUOIDUNG">
+      <End Role="PHANQUYEN" EntitySet="PHANQUYENs" />
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MATH_SANPHAM" Association="Self.FK_MATH_SANPHAM">
+      <End Role="THUONGHIEU" EntitySet="THUONGHIEUx" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

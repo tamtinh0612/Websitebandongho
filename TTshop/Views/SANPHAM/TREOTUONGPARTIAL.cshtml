@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "TREOTUONGPARTIAL";
+}
+
+<div class="row">
+    <div class=" bg-danger"><center><h3 style="padding-left:20px"> ĐỒNG HỒ TREO TƯỜNG </h3></div></center>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <a href="@Url.Action("ChiTietSanPham", new {@MASP=item.MASP })">
+                <img src=@Url.Content("~/Images/"+item.ANHBIA) class="img-responsive" alt="" width="400" height="400" />
+            </a>
+            <center>
+                <h3>@item.TENSP</h3>
+                <h3 style="color:red">Giá: @item.GIATIEN</h3>
+                <br />
+                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMASP = item.MASP, @strURL = Request.Url.ToString() }))
+                {
+                    <input type="submit" value="Mua hàng" id="bgnGioHang" />
+
+                }
+            </center>
+
+        </div>
+    }
+</div>
+

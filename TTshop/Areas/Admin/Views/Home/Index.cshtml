@@ -1,0 +1,86 @@
+﻿@model PagedList.IPagedList<TTshop.Models.SANPHAM>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Quản lý sản phẩm </h2>
+
+<p>
+    <button class="btn-default">@Html.ActionLink("Thêm mới", "Create")</button>
+</p>
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Giá tiền
+        </th>
+
+        <th>
+            Loại dây
+        </th>
+        <th>
+            Mô tả
+        </th>
+        <th>
+            Ảnh bìa
+        </th>
+        <th>
+            Hãng sản xuất
+        </th>
+        <th>
+            Thương hiệu
+        </th>
+        <th> Hành động</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.TENSP)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.GIATIEN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LOAIDAY)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MOTA)
+    </td>
+    <td>
+        <img src="@Url.Content("~/Images/" +item.ANHBIA)" width="50" height="50" />
+        @*@Html.DisplayFor(modelItem => item.Anhbia)*@
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HANGSANXUAT.TENHANG)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.THUONGHIEU.TENTH)
+    </td>
+    <td>
+        @Html.ActionLink("Sửa", "Edit", new { id = item.MASP })|
+        @Html.ActionLink("Chi tiết", "Details", new { id = item.MASP }) |
+        @Html.ActionLink("Xoá", "Delete", new { id = item.MASP })
+ 
+    </td>
+</tr>
+    }
+
+</table>
+<!-- Thêm mã phân trang -->
+<br />
+
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+
+    <!-- Kết thúc -->

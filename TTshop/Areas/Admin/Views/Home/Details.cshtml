@@ -1,0 +1,91 @@
+﻿@model TTshop.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SANPHAM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HANGSANXUAT.TENHANG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HANGSANXUAT.TENHANG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THUONGHIEU.TENTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THUONGHIEU.TENTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TENSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIATIEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIATIEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MOTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MOTA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LOAIDAY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOAIDAY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ANHBIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ANHBIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MAHANG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAHANG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MATH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MASP }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

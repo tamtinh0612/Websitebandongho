@@ -1,0 +1,20 @@
+﻿@using TTshop.Models;
+@model List<HANGSANXUAT>
+
+
+<br />
+<div class="bg-success">
+    <center><h2> DANH MỤC</h2></center>
+    <div class="row" >
+        @foreach (var item in Model)
+            {
+                <div class="col-lg-1">
+                    <button class="success"><a href="#"> @item.TENHANG</a></button>
+                </div>
+            }
+
+
+    </div>
+
+
+</div>
